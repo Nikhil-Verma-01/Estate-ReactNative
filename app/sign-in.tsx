@@ -1,12 +1,41 @@
-import { View, Text, ScrollView, Image, TouchableOpacity} from 'react-native'
-import React from 'react'
+import { View, Text, ScrollView, Image, TouchableOpacity, Alert} from 'react-native'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import images from '@/constants/images';
 import icons from '@/constants/icons';
+import { login } from '@/lib/appwrite';
+import { useGlobalContext } from '@/lib/global-provider';
+import { Redirect } from 'expo-router';
 
-const SignIn = () => {
-    const handleLogin = () => {
+const SignIn =  () => {
+    const {refetch, loading, isLoggedIn} = useGlobalContext();
 
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
+
+    if(!loading && isLoggedIn) return <Redirect href="/"/>
+
+    const handleLogin = async() => {
+        try {
+            setIsLoggingIn(true);
+            console.log("Starting login process...");
+            
+            const result = await login();
+            console.log("Login result:", result);
+
+            if (result) {
+                console.log('Login Success, refreshing user data...');
+                await refetch();
+                console.log('User data refreshed');
+            } else {
+                console.error('Login failed');
+                Alert.alert('Authentication Error', 'Unable to sign in with Google. Please try again.');
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            Alert.alert('Error', 'An unexpected error occurred during login.');
+        } finally {
+            setIsLoggingIn(false);
+        }
     };
   return (
     <SafeAreaView className='bg-white h-full'>
@@ -21,7 +50,7 @@ const SignIn = () => {
 
             <Text className='text-3xl font-rubik-bold text-black-300
             text-center mt-2'>
-                Let's Get You Closer to {"\n"}
+                Let&apos;s Get You Closer to {"\n"}
                 <Text className='text-primary-300'>Yor Ideal Home</Text>
             </Text>
 
