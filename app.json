@@ -9,14 +9,16 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nik.estate"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.nik.estate"
     },
     "web": {
       "bundler": "metro",
@@ -40,10 +42,10 @@
           "fonts": [
             "./assets/fonts/Rubik-Bold.ttf",
             "./assets/fonts/Rubik-ExtraBold.ttf",
-            "./assets/fonts/Rubik-Medium.tff",
-            "./assets/fonts/Rubik-Light.tff",
-            "./assets/fonts/Rubik-Regular.tff",
-            "./assets/fonts/Rubik-SemiBold.tff"
+            "./assets/fonts/Rubik-Medium.ttf",
+            "./assets/fonts/Rubik-Light.ttf",
+            "./assets/fonts/Rubik-Regular.ttf",
+            "./assets/fonts/Rubik-SemiBold.ttf"
           ]
         }
       ]
